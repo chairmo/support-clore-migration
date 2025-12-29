@@ -1,29 +1,60 @@
 {
   "name": "support-clore-migration",
   "version": "1.0.0",
-  "description": "https://docs.clore.ai/main/clore-migration",
-  "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "CLORE Migration Message Signer – https://docs.clore.ai/main/clore-migration",
+  "main": "electron/main.js",
+  "author": "",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Corey-Code/support-clore-migration.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Corey-Code/support-clore-migration/issues"
   },
   "homepage": "https://github.com/Corey-Code/support-clore-migration#readme",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "ai.clore.migration",
+    "productName": "CLORE Migration Signer",
+    "asar": true,
+    "files": [
+      "electron/**/*",
+      "signer.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "identity": null
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "forceCodeSigning": false
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
+  },
   "devDependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
-    "esbuild": "^0.27.2"
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
   },
   "dependencies": {
-    "@noble/curves": "^2.0.1",
-    "@noble/hashes": "^2.0.1",
-    "wif": "^5.0.0"
+    "bitcoinjs-message": "^2.2.0",
+    "coinkey": "^3.0.0"
   }
 }

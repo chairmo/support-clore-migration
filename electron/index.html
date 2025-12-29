@@ -60,13 +60,13 @@
     <h1>CLORE Message Signer</h1>
 
     <label>CLORE Private Key (WIF)</label>
-    <input id="wif" />
+    <input id="wif" autocomplete="off" />
 
     <label>CLORE Address</label>
-    <input id="clore" value="" />
+    <input id="clore" />
 
     <label>EVM Address</label>
-    <input id="evm" value="" />
+    <input id="evm" />
 
     <button onclick="sign()">Sign Message</button>
 
@@ -75,20 +75,19 @@
       <textarea id="outSig" readonly></textarea>
     </div>
 
-    <script src="./bundle.js"></script>
     <script>
       async function sign() {
         try {
-          const res = await window.signCloreMessage(
-            document.getElementById('wif').value.trim(), // hex private key
-            document.getElementById('clore').value.trim(),
-            document.getElementById('evm').value.trim()
-          );
+          const res = await window.clore.sign({
+            wif: document.getElementById('wif').value.trim(),
+            clore: document.getElementById('clore').value.trim(),
+            evm: document.getElementById('evm').value.trim(),
+          });
 
           document.getElementById('outSig').value = res.signature;
           document.getElementById('result').style.display = 'block';
         } catch (e) {
-          alert(e.message);
+          alert(e.message || e);
         }
       }
     </script>
