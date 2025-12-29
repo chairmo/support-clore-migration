@@ -5,6 +5,9 @@ esbuild
     entryPoints: ['app.js'],
     bundle: true,
     platform: 'browser',
+    target: 'es2022',
     outfile: 'bundle.js',
   })
-  .catch(() => process.exit(1));
+  .catch((err) => {
+    console.error(err);
+  });
